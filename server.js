@@ -1,8 +1,10 @@
 const express = require('express');
 const db = require('./data/db');
+const cors = require('cors');
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 // GET
 
@@ -78,7 +80,7 @@ server.put('/api/posts/:id', (req, res) => {
                     db.update(id, newInfo)
                         .then(updateId => {
                             if (updateId === 1) {
-                                res.status(200).json(newInfo);
+                                res.status(200).json(post);
                             } else {
                                 res.status(500).json({ error: "The post information could not be modified." })
                             }
